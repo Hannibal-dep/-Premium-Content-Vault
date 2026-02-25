@@ -126,8 +126,8 @@
             <!-- PASTA 1: Substitua os dados abaixo -->
             <div class="product-card">
                 <div class="product-icon">📁</div>
-                <div class="product-name">Nome da Pasta 1</div>
-                <div class="product-size">Tamanho: XX GB</div>
+                <div class="product-name">https://mega.nz/folder/JEsGFIYD#kMehOSnkuyWvcwmmL4U15A</div>
+                <div class="product-size">Tamanho: 500 GB</div>
                 <p>Descrição opcional do conteúdo...</p>
                 <div class="product-price">$19.99</div>
                 <a href="LINK-DO-PRODUTO-NO-GUMROAD-OU-SEU-SITE" class="btn" target="_blank">

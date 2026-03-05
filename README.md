@@ -1,1175 +1,472 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Vault • 50+ Exclusive Packs</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            background: linear-gradient(145deg, #0b0c1a 0%, #1a1f35 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .header h1 {
-            font-size: 3em;
-            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-        }
-        
-        .badge {
-            display: inline-block;
-            background: #ff4d6d;
-            color: white;
-            padding: 8px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1em;
-            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
-            margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .stats {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 50px;
-            max-width: 400px;
-            margin: 0 auto 30px;
-            color: white;
-            font-size: 1.1em;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .info-message {
-            background: rgba(76, 175, 80, 0.15);
-            border: 1px solid #4caf50;
-            color: #4caf50;
-            padding: 15px 25px;
-            border-radius: 12px;
-            max-width: 800px;
-            margin: 0 auto 20px;
-            font-weight: 500;
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            margin: 40px 0;
-        }
-        
-        .product-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 25px 20px;
-            transition: all 0.4s;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-        
-        .product-card:hover {
-            transform: translateY(-12px);
-            border-color: #4caf50;
-            box-shadow: 0 25px 45px rgba(76, 175, 80, 0.25);
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 160px;
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            background: linear-gradient(145deg, #2a2f4f, #1e2338);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .product-card:hover .product-image {
-            border-color: #4caf50;
-        }
-        
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .product-card:hover .product-image img {
-            transform: scale(1.08);
-        }
-        
-        .product-name {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 8px;
-            line-height: 1.3;
-            min-height: 50px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        .product-size {
-            color: #a0a8d0;
-            font-size: 0.85em;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .product-description {
-            color: #b9c0e0;
-            font-size: 0.85em;
-            margin: 10px 0;
-            line-height: 1.4;
-            min-height: 40px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        .product-price {
-            font-size: 1.8em;
-            font-weight: 800;
-            background: linear-gradient(135deg, #4caf50, #8bc34a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 15px 0 10px;
-        }
-        
-        .payment-buttons {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
-        }
-        
-        .btn-gumroad {
-            flex: 1;
-            background: linear-gradient(135deg, #ff90e8, #ff4d6d);
-            color: white;
-            text-decoration: none;
-            padding: 10px 8px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.3s;
-            font-size: 0.85em;
-            box-shadow: 0 4px 12px rgba(255, 77, 109, 0.3);
-        }
-        
-        .btn-gumroad:hover {
-            background: linear-gradient(135deg, #ff7ad0, #ff3355);
-            transform: scale(1.02);
-        }
-        
-        .btn-binance {
-            flex: 1;
-            background: #f0b90b;
-            color: #1e2329;
-            text-decoration: none;
-            padding: 10px 8px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.3s;
-            font-size: 0.85em;
-            box-shadow: 0 4px 12px rgba(240, 185, 11, 0.3);
-        }
-        
-        .btn-binance:hover {
-            background: #d6a40a;
-            transform: scale(1.02);
-        }
-        
-        .badge-method {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.1);
-            color: #a0a8d0;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.7em;
-            margin-top: 8px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 60px;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.9em;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 30px;
-        }
-        
-        @media (max-width: 1100px) {
-            .products-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        @media (max-width: 800px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 500px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>✦ PREMIUM VAULT ✦</h1>
-            <div class="badge">🔞 18+ ONLY • VERIFY AGE</div>
-            <div class="stats">📦 50+ Exclusive Packs • Instant Delivery</div>
-            <div class="info-message">
-                ⚡ Two payment options: Gumroad (PayPal/Cards) or Binance Pay (USDT) • Instant delivery after payment
-            </div>
-        </div>
+// api/products.js - Catálogo completo com 50 produtos
+// Gerado a partir da sua planilha - inclui produtos repetidos
 
-        <div class="products-grid">
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 1 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+001" alt="Pack 001">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 1]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-1]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-1]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 2 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+002" alt="Pack 002">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 2]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-2]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-2]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 3 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+003" alt="Pack 003">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 3]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-3]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-3]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 4 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+004" alt="Pack 004">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 4]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-4]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-4]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 5 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+005" alt="Pack 005">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 5]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-5]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-5]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 6 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+006" alt="Pack 006">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 6]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-6]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-6]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 7 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+007" alt="Pack 007">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 7]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-7]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-7]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 8 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+008" alt="Pack 008">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 8]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-8]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-8]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 9 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+009" alt="Pack 009">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 9]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-9]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-9]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 10 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+010" alt="Pack 010">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 10]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-10]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-10]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 11 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+011" alt="Pack 011">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 11]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-11]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-11]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 12 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+012" alt="Pack 012">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 12]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-12]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-12]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 13 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+013" alt="Pack 013">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 13]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-13]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-13]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 14 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+014" alt="Pack 014">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 14]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-14]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-14]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 15 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+015" alt="Pack 015">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 15]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-15]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-15]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 16 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+016" alt="Pack 016">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 16]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-16]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-16]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 17 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+017" alt="Pack 017">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 17]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-17]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-17]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 18 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+018" alt="Pack 018">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 18]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-18]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-18]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 19 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+019" alt="Pack 019">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 19]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-19]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-19]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 20 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+020" alt="Pack 020">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 20]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-20]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-20]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 21 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+021" alt="Pack 021">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 21]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-21]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-21]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 22 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+022" alt="Pack 022">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 22]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-22]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-22]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 23 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+023" alt="Pack 023">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 23]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-23]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-23]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 24 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+024" alt="Pack 024">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 24]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-24]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-24]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 25 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+025" alt="Pack 025">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 25]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-25]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-25]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 26 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+026" alt="Pack 026">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 26]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-26]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-26]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 27 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+027" alt="Pack 027">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 27]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-27]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-27]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 28 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+028" alt="Pack 028">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 28]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-28]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-28]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 29 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+029" alt="Pack 029">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 29]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-29]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-29]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 30 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+030" alt="Pack 030">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 30]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-30]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-30]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 31 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+031" alt="Pack 031">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 31]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-31]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-31]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 32 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+032" alt="Pack 032">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 32]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-32]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-32]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 33 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+033" alt="Pack 033">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 33]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-33]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-33]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 34 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+034" alt="Pack 034">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 34]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-34]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-34]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 35 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+035" alt="Pack 035">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 35]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-35]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-35]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 36 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+036" alt="Pack 036">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 36]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-36]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-36]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 37 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+037" alt="Pack 037">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 37]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-37]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-37]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 38 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+038" alt="Pack 038">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 38]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-38]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-38]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 39 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+039" alt="Pack 039">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 39]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-39]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-39]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 40 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+040" alt="Pack 040">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 40]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-40]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-40]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 41 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+041" alt="Pack 041">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 41]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-41]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-41]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 42 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+042" alt="Pack 042">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 42]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-42]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-42]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 43 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+043" alt="Pack 043">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 43]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-43]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-43]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 44 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+044" alt="Pack 044">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 44]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-44]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-44]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 45 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+045" alt="Pack 045">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 45]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-45]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-45]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 46 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+046" alt="Pack 046">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 46]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-46]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-46]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 47 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+047" alt="Pack 047">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 47]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-47]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-47]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 48 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+048" alt="Pack 048">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 48]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-48]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-48]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 49 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+049" alt="Pack 049">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 49]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-49]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-49]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-            <!-- ========================================== -->
-            <!-- PRODUTO 50 -->
-            <!-- ========================================== -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x160/2a2f4f/4caf50?text=PACK+050" alt="Pack 050">
-                </div>
-                <div class="product-name">[NOME EXATO DA PASTA 50]</div>
-                <div class="product-size"><span>📦</span> [TAMANHO] GB</div>
-                <div class="product-description">[DESCRIÇÃO EM INGLÊS]</div>
-                <div class="product-price">$[PREÇO]</div>
-                <div class="payment-buttons">
-                    <a href="[LINK-GUMROAD-50]" class="btn-gumroad" target="_blank">Gumroad</a>
-                    <a href="[LINK-BINANCE-50]" class="btn-binance" target="_blank">Binance</a>
-                </div>
-                <div class="badge-method">PayPal • Cards • USDT</div>
-            </div>
-            
-        </div>
+const products = {
+  // ==========================================
+  // PRODUTOS 001 a 010 (Screenshot 104)
+  // ==========================================
+  'prod_001': {
+    id: 'prod_001',
+    name: 'CP Nice',
+    size: '4.75 GB',
+    price: 30.00,
+    description: 'Premium digital content pack. 18+ only. Instant download',
+    downloadLink: 'https://mega.nz/folder/tMM0AZ6R#ppOLWOQEASeDvkx5u6Na2A',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=CP+Nice'
+  },
+  'prod_002': {
+    id: 'prod_002',
+    name: 'TEEN BJS',
+    size: '1.58 GB',
+    price: 25.00,
+    description: 'Top sellers collection. Rare content. High quality',
+    downloadLink: 'https://mega.nz/folder/tBseHBZS#I-kAdXRuOMF5InTK_mGXLW',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=TEEN+BJS'
+  },
+  'prod_003': {
+    id: 'prod_003',
+    name: 'TEEN 16-17',
+    size: '1.26 GB',
+    price: 25.00,
+    description: 'Mega collection. 4K quality. Organized folders',
+    downloadLink: 'https://mega.nz/folder/YckBWZRJ#YUwmT10M3W779hVs9evYLQ',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=TEEN+16-17'
+  },
+  'prod_004': {
+    id: 'prod_004',
+    name: 'ZOO PACK',
+    size: '17.56 GB',
+    price: 80.00,
+    description: 'Premium digital content pack. 18+ only. Instant download',
+    downloadLink: 'https://mega.nz/folder/tE0kWVYtb#RS1cD9JGUfhYtDgbK3Y0Uw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=ZOO+PACK'
+  },
+  'prod_005': {
+    id: 'prod_005',
+    name: 'WHITE TEEN',
+    size: '7.36 GB',
+    price: 35.00,
+    description: 'Top sellers collection. Rare content. High quality',
+    downloadLink: 'https://mega.nz/folder/kYIXIDia#7mqRoLM6-pS-xB237ThRAw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=WHITE+TEEN'
+  },
+  'prod_006': {
+    id: 'prod_006',
+    name: 'TEEN MIX Cp',
+    size: '1.26 GB',
+    price: 25.00,
+    description: 'Premium digital content pack. 18+ only. Instant download',
+    downloadLink: 'https://mega.nz/folder/0IEjRxl#70dYu8xf62ZfeEA7kXa8sw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=TEEN+MIX+Cp'
+  },
+  'prod_007': {
+    id: 'prod_007',
+    name: 'TEEN E404',
+    size: '5.28 GB',
+    price: 30.00,
+    description: 'Top sellers collection. Rare content. High quality',
+    downloadLink: 'https://mega.nz/folder/MZkUDCTC#xj2XdMLOS5CoJ6AMB81UQW/folder/oNk2kB4a',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=TEEN+E404'
+  },
+  'prod_008': {
+    id: 'prod_008',
+    name: 'TEEN AVA BM',
+    size: '8.76 GB',
+    price: 35.00,
+    description: 'Mega collection. 4K quality. Organized folders',
+    downloadLink: 'https://mega.nz/folder/YUtBnKzA#GlXuTmajOlsyJKcHTblfow',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=TEEN+AVA+BM'
+  },
+  'prod_009': {
+    id: 'prod_009',
+    name: 'TEEN ABBI BM',
+    size: '17.73 GB',
+    price: 50.00,
+    description: 'Premium digital content pack. 18+ only. Instant download',
+    downloadLink: 'https://mega.nz/folder/UdfiWYbZ#qHxopxJg8FctEhAW4POxFw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=TEEN+ABBI+BM'
+  },
+  'prod_010': {
+    id: 'prod_010',
+    name: 'TAILANDESA',
+    size: '149.06 GB',
+    price: 100.00,
+    description: 'Top sellers collection. Rare content. High quality',
+    downloadLink: 'https://mega.nz/folder/xBc22bDS#StESsmfNhtZYMeSWCjXGFA',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=TAILANDESA'
+  },
 
-        <div class="footer">
-            <p>© 2026 Premium Vault • 50+ Exclusive Packs • 18+ Only</p>
-            <p style="margin-top: 10px; font-size: 0.85em;">🔒 Secure payment via Gumroad & Binance Pay • Instant delivery • PayPal, cards & USDT accepted • No refunds on digital items</p>
-        </div>
-    </div>
-</body>
-</html>
+  // ==========================================
+  // PRODUTOS 011 a 017 (Screenshot 104 - continuação)
+  // ==========================================
+  'prod_011': {
+    id: 'prod_011',
+    name: 'Snap Dog',
+    size: '530.29 GB',
+    price: 250.00,
+    description: 'VIP LIMITED - Rare and exclusive content. Corrupted',
+    downloadLink: 'https://mega.nz/folder/n4YDlJaZ#F2L90N5md9tvxkuroBOWWg',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=Snap+Dog'
+  },
+  'prod_012': {
+    id: 'prod_012',
+    name: 'Lizzy',
+    size: '9.79 GB',
+    price: 30.00,
+    description: 'Premium digital content pack. 18+ only. High quality',
+    downloadLink: 'https://mega.nz/folder/yEEWGBCQ#KuaOn5zkdequmy3pDCQAEg',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=Lizzy'
+  },
+  'prod_013': {
+    id: 'prod_013',
+    name: 'SAVANNAH TEEN',
+    size: '60.98 GB',
+    price: 70.00,
+    description: 'MEGA PACK - Massive collection. Organized folders',
+    downloadLink: 'https://mega.nz/folder/sZUHTDZY#dcacOc4boQtKFm_cfa7j7Dg',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=SAVANNAH+TEEN'
+  },
+  'prod_014': {
+    id: 'prod_014',
+    name: 'RAP3 E404 🎵',
+    size: '2.13 GB',
+    price: 25.00,
+    description: 'Mega collection. 4K quality. Organized folders',
+    downloadLink: 'https://mega.nz/folder/YB0IBLbR#oyPilK_dnBTxfZxnGmxvsg',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=RAP3+E404'
+  },
+  'prod_015': {
+    id: 'prod_015',
+    name: 'Pty 13 - 17',
+    size: '185.78 GB',
+    price: 100.00,
+    description: 'TOP SELLER - Premium exclusive content. High quality',
+    downloadLink: 'https://mega.nz/folder/cdVkRKDI#ejhr6db0s0xIFe_DO-3Vfw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=Pty+13-17'
+  },
+  'prod_016': {
+    id: 'prod_016',
+    name: 'PREMIUM CP PEDO MOM',
+    size: '54.59 GB',
+    price: 60.00,
+    description: 'MEGA PACK - Massive collection. Organized folders',
+    downloadLink: 'https://mega.nz/folder/JENGRTKR#YgJ4fxigaXSNJ8VQ9_JtmA',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=PREMIUM+CP+PEDO+MOM'
+  },
+  'prod_017': {
+    id: 'prod_017',
+    name: 'PEDO MOM',
+    size: '1.74 GB',
+    price: 20.00,
+    description: 'Premium content. 18+ only. Instant delivery via Mail',
+    downloadLink: 'https://mega.nz/folder/EJ90VSyz#H4KCuf0is61WKLi0rAQ0uw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=PEDO+MOM'
+  },
+
+  // ==========================================
+  // PRODUTOS 018 a 034 (Screenshot 105)
+  // ==========================================
+  'prod_018': {
+    id: 'prod_018',
+    name: 'NoFit',
+    size: '308.1 GB',
+    price: 85.00,
+    description: 'TOP SELLER - Premium exclusive content. High quality',
+    downloadLink: 'https://mega.nz/folder/5ddSyLKS#jkcHaVSwxgvlY69MvYzcXQ',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=NoFit'
+  },
+  'prod_019': {
+    id: 'prod_019',
+    name: 'NEW STUFF PYTTEEN 🎀',
+    size: '1.25 GB',
+    price: 25.00,
+    description: 'Top sellers collection. Rare content. High quality',
+    downloadLink: 'https://mega.nz/folder/cR8mhCiL#eQ-G9L4aDJ-ILesA-e3XjA',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=NEW+STUFF+PYTTEEN'
+  },
+  'prod_020': {
+    id: 'prod_020',
+    name: 'NEW CP 3',
+    size: '1.85 GB',
+    price: 25.00,
+    description: 'Premium digital content pack. 18+ only. Instant download',
+    downloadLink: 'https://mega.nz/folder/AZNmgIwR#UWd56EClwKcxhNFZbePH4Q',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=NEW+CP+3'
+  },
+  'prod_021': {
+    id: 'prod_021',
+    name: 'NEW CP 2',
+    size: '1.50 GB',
+    price: 30.00,
+    description: 'TOP SELLER - Premium exclusive content. High quality',
+    downloadLink: 'https://mega.nz/folder/MJF1ILJC#NL9_Zaa1BUe9NCvAQvj13A',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=NEW+CP+2'
+  },
+  'prod_022': {
+    id: 'prod_022',
+    name: 'NEW CP 9-13 PEDO FATHEF',
+    size: '6.21 GB',
+    price: 35.00,
+    description: '4K ULTRA HD - Crystal clear quality. Maximum res',
+    downloadLink: 'https://mega.nz/folder/tE0kWVYTb#BXF_-Ci-YJf3MEC4Y_lBAg',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=NEW+CP+9-13+PEDO+FATHEF'
+  },
+  'prod_023': {
+    id: 'prod_023',
+    name: 'ZOO PACK',
+    size: '17.50 GB',
+    price: 80.00,
+    description: 'TOP SELLER - Premium exclusive content. High quality',
+    downloadLink: 'https://mega.nz/folder/tEOkWVYTb#ppOLWOQEASeDvkxs5u6Na2A',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=ZOO+PACK'
+  },
+  'prod_024': {
+    id: 'prod_024',
+    name: 'Amélia',
+    size: '580.34 MB',
+    price: 25.00,
+    description: 'MEGA PACK - Massive collection. Organized folder',
+    downloadLink: 'https://mega.nz/folder/Guz2ESYS#IKzeTqgst833U_ly132Tw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=Amelia'
+  },
+  'prod_025': {
+    id: 'prod_025',
+    name: 'Anxious panda',
+    size: '79.91 GB',
+    price: 50.00,
+    description: 'Mega collection. 4K quality. Organized folders',
+    downloadLink: 'https://mega.nz/folder/zZaAm0SRQ#nNnwbE6SZcQb7jVX3ouF8A',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=Anxious+panda'
+  },
+  'prod_026': {
+    id: 'prod_026',
+    name: 'CP 4 HD CCCCC',
+    size: '1.52 GB',
+    price: 30.00,
+    description: 'VIP LIMITED - Rare and exclusive content. Complete',
+    downloadLink: 'https://mega.nz/folder/ZAsAWLBSS#sVK7VRGOH3GNKq4X_T8ng',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=CP+4+HD+CCCCC'
+  },
+  'prod_027': {
+    id: 'prod_027',
+    name: 'CP INC3ST',
+    size: '2.18 GB',
+    price: 35.00,
+    description: 'Mega collection. 4K quality. Organized folders',
+    downloadLink: 'https://mega.nz/folder/EM8FULWY#KMj-4kyWiO1J4smGuk9rRw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=CP+INC3ST'
+  },
+  'prod_028': {
+    id: 'prod_028',
+    name: 'DARKZADIE',
+    size: '14.01 GB',
+    price: 50.00,
+    description: 'TOP SELLER - Premium exclusive content. High quality',
+    downloadLink: 'https://mega.nz/folder/sA8CUYJK#Hn0HMhEpHGZouleSEMJ5Dg',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=DARKZADIE'
+  },
+  'prod_029': {
+    id: 'prod_029',
+    name: 'english teens',
+    size: '5.19 GB',
+    price: 40.00,
+    description: 'Premium digital content pack. 18+ only. Instant download',
+    downloadLink: 'https://mega.nz/folder/JY8RBRRI#cHIcyYg0Fq8nmA50gGC2nQ',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=english+teens'
+  },
+  'prod_030': {
+    id: 'prod_030',
+    name: 'Mom and Son',
+    size: '2.93 GB',
+    price: 30.00,
+    description: 'VIP LIMITED - Rare and exclusive content. Cor',
+    downloadLink: 'https://mega.nz/folder/MB9mSbhJ#p8j00IETunM8Bb1h-UwZwv',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=Mom+and+Son'
+  },
+  'prod_031': {
+    id: 'prod_031',
+    name: 'CP Full 1744 VIDEOS',
+    size: '93.38 GB',
+    price: 50.00,
+    description: '4K ULTRA HD - Crystal clear quality. Maximum res',
+    downloadLink: 'https://mega.nz/folder/l2RTgRbY#DsPa782AKZPfZLnQ2L_59A',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=CP+Full+1744+VIDEOS'
+  },
+  'prod_032': {
+    id: 'prod_032',
+    name: 'CP2',
+    size: '3.27 GB',
+    price: 35.00,
+    description: 'TOP SELLER - Premium exclusive content. High quality',
+    downloadLink: 'https://mega.nz/folder/86gTQCrJ#fOtAtzFDdeC-EuZOcZO6Ew',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=CP2'
+  },
+  'prod_033': {
+    id: 'prod_033',
+    name: 'Random pyt meh',
+    size: '842.05 GB',
+    price: 90.00,
+    description: 'Top sellers collection. Rare content. High quality',
+    downloadLink: 'https://mega.nz/folder/Ura5AnawL#vrJwmwUsf6livsKpfRxCEQ',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=Random+pyt+meh'
+  },
+  'prod_034': {
+    id: 'prod_034',
+    name: 'TAILANDESA',
+    size: '149.06 GB',
+    price: 70.00,
+    description: 'Top sellers collection. Rare content. High quality',
+    downloadLink: 'https://mega.nz/folder/xBc22bDS#StESsmfNhtZYMewSCjXGFA',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=TAILANDESA'
+  },
+
+  // ==========================================
+  // PRODUTOS 035 a 050 (Screenshot 107)
+  // ==========================================
+  'prod_035': {
+    id: 'prod_035',
+    name: 'NEW CP 3',
+    size: '1.85 GB',
+    price: 30.00,
+    description: 'Premium digital content pack. 18+ only. Instant download',
+    downloadLink: 'https://mega.nz/folder/AZNmgIwR#UWd56EClwKcxhNFzbePH4Q',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=NEW+CP+3'
+  },
+  'prod_036': {
+    id: 'prod_036',
+    name: 'DARKZADIE',
+    size: '14.01 GB',
+    price: 40.00,
+    description: 'TOP SELLER - Premium exclusive content. High quality',
+    downloadLink: 'https://mega.nz/folder/sA8CUYJk#Hn0HMhEpHGZouleSEMJ5Dg',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=DARKZADIE'
+  },
+  'prod_037': {
+    id: 'prod_037',
+    name: 'Blackmail',
+    size: '119 GB',
+    price: 65.00,
+    description: 'Top sellers collection. Rare content. High quality',
+    downloadLink: 'https://mega.nz/folder/V1QWXILZ#rF9cMSPPkdA9bBBxIrMifA',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=Blackmail'
+  },
+  'prod_038': {
+    id: 'prod_038',
+    name: 'RAP3 E404 😂',
+    size: '2.13 GB',
+    price: 25.00,
+    description: 'Premium digital content pack. 18+ only. Instant download',
+    downloadLink: 'https://mega.nz/folder/YB0IBLbR#oyPilk_dnBTxfZxnGmxvsg',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=RAP3+E404'
+  },
+  'prod_039': {
+    id: 'prod_039',
+    name: 'CP Nice',
+    size: '4.75 GB',
+    price: 30.00,
+    description: 'MEGA PACK - Massive collection. Organized for premium digital content',
+    downloadLink: 'https://mega.nz/folder/tMM0AZ6R#ppOLWOQEASeDvkx5u6Na2A',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=CP+Nice'
+  },
+  'prod_040': {
+    id: 'prod_040',
+    name: 'Amélia',
+    size: '580.34 MB',
+    price: 30.00,
+    description: 'Top sellers collection. Rare content. High quality',
+    downloadLink: 'https://mega.nz/folder/Gux2ESYS#IKzeTggst833U_lsY132Tw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=Amelia'
+  },
+  'prod_041': {
+    id: 'prod_041',
+    name: 'CP INC3ST',
+    size: '2.18 GB',
+    price: 35.00,
+    description: 'TOP SELLER - Premium exclusive content. High quality',
+    downloadLink: 'https://mega.nz/folder/EM8FULWY#KMj-4kyWiO1J4smGuk9rRw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=CP+INC3ST'
+  },
+  'prod_042': {
+    id: 'prod_042',
+    name: 'Random pyt meh',
+    size: '842.05 GB',
+    price: 100.00,
+    description: 'Premium digital content pack. 18+ only. Instant download',
+    downloadLink: 'https://mega.nz/folder/Ur5Anawl#vrJwmwUsf6livsKpfRxCEQ',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=Random+pyt+meh'
+  },
+  'prod_043': {
+    id: 'prod_043',
+    name: 'TEEN BJS',
+    size: '1.58 GB',
+    price: 30.00,
+    description: 'Top sellers collection. Rare content. High quality',
+    downloadLink: 'https://mega.nz/folder/tBsEHBZS#I-kAdXRuOMF5lnTK_mGXLw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=TEEN+BJS'
+  },
+  'prod_044': {
+    id: 'prod_044',
+    name: 'TEEN E404',
+    size: '5.28 GB',
+    price: 40.00,
+    description: 'Top sellers collection. Rare content. High quality',
+    downloadLink: 'https://mega.nz/folder/MZKUDCTC#xj2XdmlOS5CoJ6AMB81UQw/folder/oNk2kB4a',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=TEEN+E404'
+  },
+  'prod_045': {
+    id: 'prod_045',
+    name: 'Lizzy',
+    size: '9.79 GB',
+    price: 45.00,
+    description: 'Mega collection. 4K quality. Organized for premium digital content',
+    downloadLink: 'https://mega.nz/folder/yEEWgBCQ#KuaOn5zkDequmy3pDCQAEg',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=Lizzy'
+  },
+  'prod_046': {
+    id: 'prod_046',
+    name: 'ZOO PACK',
+    size: '17.55 GB',
+    price: 80.00,
+    description: 'MEGA PACK - Massive collection. Organized for premium digital content',
+    downloadLink: 'https://mega.nz/folder/tE0kWYTb#RS1cD9JGUFhYtDbk3Y0Uw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=ZOO+PACK'
+  },
+  'prod_047': {
+    id: 'prod_047',
+    name: 'TEEN MIX Cp',
+    size: '1.26 GB',
+    price: 25.00,
+    description: 'Premium digital content pack. 18+ only. Instant download',
+    downloadLink: 'https://mega.nz/folder/OIEljRxl#70dYu8xf62zfeEA7kXa8sw',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=TEEN+MIX+Cp'
+  },
+  'prod_048': {
+    id: 'prod_048',
+    name: 'english teens',
+    size: '5.19 GB',
+    price: 40.00,
+    description: 'Premium digital content pack. 18+ only. Instant download',
+    downloadLink: 'https://mega.nz/folder/JY8RBRRI#cHIcyYG0Fq8nmA50gGC2nQ',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=english+teens'
+  },
+  'prod_049': {
+    id: 'prod_049',
+    name: 'SAVANNAH TEEN',
+    size: '60.98 GB',
+    price: 70.00,
+    description: 'VIP LIMITED - Rare and exclusive content. Correlated with the latest trends',
+    downloadLink: 'https://mega.nz/folder/zSUHTDZY#dcacOc4boQtKFm_cfaj7Dg',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=SAVANNAH+TEEN'
+  },
+  'prod_050': {
+    id: 'prod_050',
+    name: 'All Content',
+    size: '1.03 TB',
+    price: 300.00,
+    description: 'All exclusive content - Mega VIP',
+    downloadLink: 'https://mega.nz/folder/wRcFUKwQ#76CD50_q4vdTtc_ZJ3bt8Q/folder/MFsyXYwY',
+    imageUrl: 'https://via.placeholder.com/300x160/2a2f4f/f0b90b?text=All+Content'
+  }
+};
+
+module.exports = { products };
